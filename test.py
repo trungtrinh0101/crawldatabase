@@ -1,12 +1,18 @@
 import uvicorn
 from fastapi import FastAPI
 import mysql.connector
-import pandas as pd
-import pyodbc as odbc
-import json
-import requests
+from typing import Optional
+
+class Item():
+    title: str
+    price: str
+    description: Optional[str] = None
+    distCity:str
+    uptime: str
+    productArea: str
 
 app = FastAPI()
+
 
 def fetch_data(connection):
 
@@ -27,14 +33,40 @@ def get_data():
     print('BEGIN')
 
     query = 'SELECT * FROM databds'
-
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM databds")
-
     rows = cursor.fetchall()
-    print(rows)
+    print('')
 
-    return rows
+    result = []
+    for datas in rows:
+       title = datas[0]
+       price = datas[1]
+       description = datas[2]
+       distCity = datas[3]
+       uptime = datas[4]
+       productArea = datas[5]
+
+       print('##################')
+       print(title)
+       print(price)
+       print(description)
+       print(distCity)
+       print(uptime)
+       print(productArea)
+       print('END')
+
+       item = Item()
+       item.title = title
+       item.price = price
+       item.description = description
+       item.uptime = uptime
+       item.distCity = distCity
+       item.productArea = productArea
+       result.append(item)
+
+
+    return result
 
 
 if __name__ == "__test__":

@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 from csv import writer
 import mysql.connector
 
-service = Service(executable_path='.\driver\chromedriver.exe')
+service = Service(executable_path='driver\chromedriver.exe')
 driver = webdriver.Chrome(service=service)
 # driver = webdriver.Chrome(ChromeDriverManager().install())
 driver.get("https://batdongsan.com.vn/nha-dat-ban-da-nang")
